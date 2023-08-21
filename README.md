@@ -4,7 +4,7 @@ Kodlokal; local code completion using LLM AI
 
 ## 💾 Installation Options
 
-### ➡️ straight.el
+### straight.el
 
 ```elisp
 (straight-use-package '(kodlokal :type git :host github :repo "alperakgun/kodlokal.el"))
@@ -23,7 +23,7 @@ Add the example configuration to your `config.el` file.
 Run the following.
 
 ```bash
-git clone git@github.com:kodlokal/kodlokal.el.git ~/.emacs.d/kodlokal.el
+git clone https://github.com/kodlokal/kodlokal.el.git ~/.emacs.d/kodlokal.el
 ```
 
 Add the following to your `~/.emacs.d/init.el` file.
