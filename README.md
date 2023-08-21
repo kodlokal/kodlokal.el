@@ -45,7 +45,7 @@ That will be a nice company mode configuration.
   :config
   (global-company-mode t)
   (setq-default
-   company-idle-delay 0.600
+   company-idle-delay 0.900
    company-require-match nil
    company-minimum-prefix-length 3
    company-frontends '(company-preview-frontend)
