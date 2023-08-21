@@ -29,6 +29,8 @@ git clone https://github.com/kodlokal/kodlokal.el.git ~/.emacs.d/kodlokal.el
 Add the following to your `~/.emacs.d/init.el` file.
 
 ```lisp
+(add-to-list 'load-path "~/.emacs.d/kodlokal.el")
+
 (use-package kodlokal
   :init
   (add-to-list 'completion-at-point-functions #'kodlokal-completion-at-point)
