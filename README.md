@@ -2,7 +2,7 @@
 
 Kodlokal; local code completion using LLM AI
 
-## 💾 Installation Options
+## Install
 
 ### straight.el
 
