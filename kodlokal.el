@@ -5,10 +5,18 @@
 ;; (require 'json)
 (require 'url)
 
-(defun kodlokal-fetch-suggestions-url (query page)
+(defun kodlokal-build-query ()
+    "Return word query"
+  (thing-at-point 'line t))
+
+(defun kodlokal-build-content ()
+    "Return completion content"
+  (buffer-substring (point-min) (point)))
+
+(defun kodlokal-fetch-suggestions-url (query content)
  "Fetch suggestions for QUERY."
   (let* (
-        (data `((q . ,page)))
+        (data `((q . ,content)))
         (url-request-method "POST")
         (url-request-extra-headers '(("Content-Type" . "application/json")))
         (url-request-data (json-encode data))
@@ -23,16 +31,16 @@
              (query-body (concat query response)))
           (list query-body)))))
 
-(defun kodlokal-fetch-suggestions (query page)
+(defun kodlokal-fetch-suggestions (query content)
   "Call fetch suggestions for QUERY."
   (ignore-errors
     (unless (and
-             (stringp page)
+             (stringp content)
              (stringp query)
-             (> (length page) 3)
+             (> (length content) 3)
              (> (length query) 3))
       (throw 'exit))
-      (kodlokal-fetch-suggestions-url query page)))
+      (kodlokal-fetch-suggestions-url query content)))
 
 
 (defun kodlokal-completion-at-point ()
@@ -42,12 +50,12 @@
          (start (line-beginning-position))
          (end (line-end-position)))
     (list start end
-    (completion-table-with-cache
-     (lambda (_)
-       (let ((result
-              (kodlokal-fetch-suggestions (thing-at-point 'line t) (buffer-substring (point-min) (point)))))
-         (and (consp result) result))))
-          :exclusive 'no)))
+      (completion-table-with-cache
+        (lambda (_)
+          (let ((result
+             (kodlokal-fetch-suggestions (kodlokal-build-query) (kodlokal-build-content))))
+          (and (consp result) result))))
+      :exclusive 'no)))
 
 
 (provide 'kodlokal)
