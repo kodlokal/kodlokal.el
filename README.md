@@ -52,3 +52,8 @@ That will be a nice company mode configuration.
    ))
 ;; init.el ends here
 ```
+
+Company mode allows you to cycle
+```
+(global-set-key (kbd "s-/") 'company-complete-common-or-cycle)
+```
