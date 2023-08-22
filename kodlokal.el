@@ -11,7 +11,9 @@
 
 (defun kodlokal-build-content ()
     "Return completion content"
-  (buffer-substring (point-min) (point)))
+    (replace-regexp-in-string "\n\\'"
+                              ""
+                              (buffer-substring (point-min) (point))))
 
 (defun kodlokal-fetch-suggestions-url (query content)
  "Fetch suggestions for QUERY."
@@ -40,8 +42,7 @@
              (> (length content) 3)
              (> (length query) 3))
       (throw 'exit))
-      (kodlokal-fetch-suggestions-url query content)))
-
+      (while-no-input (kodlokal-fetch-suggestions-url query content))))
 
 (defun kodlokal-completion-at-point ()
   "AI generated responses."
