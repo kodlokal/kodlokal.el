@@ -45,8 +45,7 @@
     (completion-table-with-cache
      (lambda (_)
        (let ((result
-              (while-no-input
-                (kodlokal-fetch-suggestions (thing-at-point 'line t) (buffer-substring (point-min) (point))))))
+              (kodlokal-fetch-suggestions (thing-at-point 'line t) (buffer-substring (point-min) (point)))))
          (and (consp result) result))))
           :exclusive 'no)))
 
