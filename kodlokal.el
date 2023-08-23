@@ -7,7 +7,9 @@
 
 (defun kodlokal-build-query ()
     "Return word query"
-  (thing-at-point 'line t))
+  (replace-regexp-in-string "\n\\'"
+                            ""
+                            (thing-at-point 'line t)))
 
 (defun kodlokal-build-content ()
     "Return completion content"
