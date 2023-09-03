@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-;; (require 'json)
+(require 'json)
 (require 'url)
 
 (defun kodlokal-build-query ()
@@ -19,24 +19,28 @@
 
 (defun kodlokal-fetch-suggestions-url (query content)
  "Fetch suggestions for QUERY."
+
   (let* (
-        (data `((q . ,content)))
+        (data `((prompt . ,content)))
         (url-request-method "POST")
         (url-request-extra-headers '(("Content-Type" . "application/json")))
         (url-request-data (json-encode data))
         (url-show-status nil))
     (with-current-buffer
-        (url-retrieve-synchronously "http://localhost:3737/code/completions" :timeout 7)
+        (url-retrieve-synchronously "http://localhost:3737/v1/completions" :timeout 7)
       (set-buffer-multibyte t)
       (goto-char (point-min))
       (re-search-forward "\n\n")
       (let* (
              (response (buffer-substring-no-properties (point) (point-max)))
-             (query-body (concat query response)))
-          (list query-body)))))
+             (json-response (json-read-from-string response))
+             (completion-text (cdr (assoc 'text (aref (cdr (assoc 'choices json-response)) 0))))
+             (query-completion (concat query completion-text)))
+          (list query-completion)))))
 
 (defun kodlokal-fetch-suggestions (query content)
   "Call fetch suggestions for QUERY."
+
   (ignore-errors
     (unless (and
              (stringp content)
@@ -48,6 +52,7 @@
 
 (defun kodlokal-completion-at-point ()
   "AI generated responses."
+
   (interactive)
   (let* (
          (start (line-beginning-position))
