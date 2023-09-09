@@ -1,23 +1,23 @@
-;;; ziroton.el --- ziroton client for emacs
+;;; kodlokal.el --- kodlokal client for emacs
 ;;; Commentary:
 ;;; Code:
 
 (require 'json)
 (require 'url)
 
-(defun ziroton-build-query ()
+(defun kodlokal-build-query ()
     "Return word query"
   (replace-regexp-in-string "\n\\'"
                             ""
                             (thing-at-point 'line t)))
 
-(defun ziroton-build-content ()
+(defun kodlokal-build-content ()
     "Return completion content"
     (replace-regexp-in-string "\n\\'"
                               ""
                               (buffer-substring (point-min) (point))))
 
-(defun ziroton-fetch-suggestions-url (query content)
+(defun kodlokal-fetch-suggestions-url (query content)
  "Fetch suggestions for QUERY."
 
   (let* (
@@ -38,7 +38,7 @@
              (query-completion (concat query completion-text)))
           (list query-completion)))))
 
-(defun ziroton-fetch-suggestions (query content)
+(defun kodlokal-fetch-suggestions (query content)
   "Call fetch suggestions for QUERY."
 
   (ignore-errors
@@ -48,9 +48,9 @@
              (> (length content) 3)
              (> (length query) 3))
       (throw 'exit))
-      (while-no-input (ziroton-fetch-suggestions-url query content))))
+      (while-no-input (kodlokal-fetch-suggestions-url query content))))
 
-(defun ziroton-completion-at-point ()
+(defun kodlokal-completion-at-point ()
   "AI generated responses."
 
   (interactive)
@@ -61,10 +61,10 @@
       (completion-table-with-cache
         (lambda (_)
           (let ((result
-             (ziroton-fetch-suggestions (ziroton-build-query) (ziroton-build-content))))
+             (kodlokal-fetch-suggestions (kodlokal-build-query) (kodlokal-build-content))))
           (and (consp result) result))))
       :exclusive 'no)))
 
 
-(provide 'ziroton)
-;; ziroton.el ends here
+(provide 'kodlokal)
+;; kodlokal.el ends here

@@ -1,19 +1,19 @@
-## Ziroton
+## Kodlokal
 
-Ziroton; local code completion using LLM AI
+Kodlokal; local code completion using LLM AI
 
 ## Install
 
 ### straight.el
 
 ```elisp
-(straight-use-package '(ziroton :type git :host github :repo "alperakgun/ziroton.el"))
+(straight-use-package '(kodlokal :type git :host github :repo "alperakgun/kodlokal.el"))
 ```
 
 ### Doom Emacs
 In `packages.el` add the following:
 ```elisp
-(package! ziroton :recipe (:host github :repo "alperakgun/ziroton.el"))
+(package! kodlokal :recipe (:host github :repo "alperakgun/kodlokal.el"))
 ```
 Add the example configuration to your `config.el` file.
 
@@ -23,17 +23,17 @@ Add the example configuration to your `config.el` file.
 Run the following.
 
 ```bash
-git clone https://github.com/ziroton/ziroton.el.git ~/.emacs.d/ziroton.el
+git clone https://github.com/kodlokal/kodlokal.el.git ~/.emacs.d/kodlokal.el
 ```
 
 Add the following to your `~/.emacs.d/init.el` file.
 
 ```lisp
-(add-to-list 'load-path "~/.emacs.d/ziroton.el")
+(add-to-list 'load-path "~/.emacs.d/kodlokal.el")
 
-(use-package ziroton
+(use-package kodlokal
   :init
-  (add-to-list 'completion-at-point-functions #'ziroton-completion-at-point)
+  (add-to-list 'completion-at-point-functions #'kodlokal-completion-at-point)
   :config
   (setq use-dialog-box nil))
 ```
