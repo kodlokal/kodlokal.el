@@ -16,12 +16,14 @@
 
 (defun kodlokal-code-content ()
   "Return completion content."
+
   (replace-regexp-in-string "\n\\'"
                             ""
                             (buffer-substring (point-min) (point))))
 
 (defun kodlokal-build-data (content model)
   "Build data input from CONTENT and MODEL."
+
  `((prompt . ,content) (model . ,model)))
 
 (defun kodlokal-fetch-suggestions-url (query content model)
@@ -80,7 +82,9 @@
   (let (
         (start  (if (use-region-p) (region-beginning) (point-min)))
         (end  (if (use-region-p) (region-end) (point))))
-      (replace-regexp-in-string "\n\\'" "" (buffer-substring-no-properties start end))))
+    (encode-coding-string
+     (replace-regexp-in-string "\n\\'" ""
+                               (buffer-substring-no-properties start end)) 'utf-8)))
 
 (defun kodlokal-ai-completion ()
   "AI completion for the active region or the full buffer."
