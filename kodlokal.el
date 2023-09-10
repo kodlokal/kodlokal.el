@@ -44,7 +44,7 @@
              (response (buffer-substring-no-properties (point) (point-max)))
              (json-response (json-read-from-string response))
              (completion-text (cdr (assoc 'text (aref (cdr (assoc 'choices json-response)) 0))))
-             (query-completion (if (eq model "code")
+             (query-completion (if (equal model "code")
                                    (concat query completion-text)
                                  (concat "" completion-text))))
           (list query-completion)))))
