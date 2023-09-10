@@ -25,7 +25,7 @@ Add the following to your `~/.emacs.d/init.el` file.
 ```
 
 That will be a nice company mode configuration.
-```
+```lisp
 (use-package company
   :defer 0.1
   :config
@@ -46,14 +46,33 @@ Company mode allows you to cycle
 
 ### straight.el (not tested)
 
-```elisp
+```lisp
 (straight-use-package '(kodlokal :type git :host github :repo "alperakgun/kodlokal.el"))
 ```
 
 ### Doom Emacs  (not tested)
+
 In `packages.el` add the following:
-```elisp
+
+```lisp
 (package! kodlokal :recipe (:host github :repo "alperakgun/kodlokal.el"))
 ```
 Add the example configuration to your `config.el` file.
 
+
+## AI Assistant
+
+Hydra can allow multiple prompt libraries to be used for
+
+```lisp
+(defhydra hydra-ai (:color yellow
+                                   :hint nil)
+  "
+------------------------------------------------------------------------------------------
+ i: Complete text
+"
+  ("i"  kodlokal-ai-completion)
+  ("q"   nil "cancel" :color blue))
+
+(define-key projectile-mode-map  (kbd "s-z") 'hydra-ai/body)
+```
