@@ -1,24 +1,27 @@
-;;; kodlokal.el --- kodlokal client for emacs
+;;; kodlokal.el --- Kodlokal AI client for emacs
 ;;; Commentary:
+;; See https://github.com/kodlokal/kodlokal.el
+;; Server https://github.com/kodlokal/kodlokal
+;; Alper Akgun
 ;;; Code:
 
 (require 'json)
 (require 'url)
 
 (defun kodlokal-build-query ()
-    "Return word query"
+    "Return word query."
   (replace-regexp-in-string "\n\\'"
                             ""
                             (thing-at-point 'line t)))
 
 (defun kodlokal-build-content ()
-    "Return completion content"
+    "Return completion content."
     (replace-regexp-in-string "\n\\'"
                               ""
                               (buffer-substring (point-min) (point))))
 
 (defun kodlokal-fetch-suggestions-url (query content)
- "Fetch suggestions for QUERY."
+ "Fetch suggestions for QUERY and CONTENT."
 
   (let* (
         (data `((prompt . ,content)))
@@ -39,7 +42,7 @@
           (list query-completion)))))
 
 (defun kodlokal-fetch-suggestions (query content)
-  "Call fetch suggestions for QUERY."
+  "Call fetch suggestions for QUERY and CONTENT."
 
   (ignore-errors
     (unless (and
@@ -47,13 +50,13 @@
              (stringp query)
              (> (length content) 3)
              (> (length query) 3))
-      (throw 'exit))
+      (throw 'exit 1))
       (while-no-input (kodlokal-fetch-suggestions-url query content))))
 
 (defun kodlokal-completion-at-point ()
-  "AI generated responses."
-
+  "Complete at point."
   (interactive)
+
   (let* (
          (start (line-beginning-position))
          (end (line-end-position)))
@@ -65,6 +68,5 @@
           (and (consp result) result))))
       :exclusive 'no)))
 
-
 (provide 'kodlokal)
-;; kodlokal.el ends here
+;;; kodlokal.el ends here
