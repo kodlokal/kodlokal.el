@@ -4,21 +4,7 @@ Kodlokal; local code completion using LLM AI
 
 ## Install
 
-### straight.el
-
-```elisp
-(straight-use-package '(kodlokal :type git :host github :repo "alperakgun/kodlokal.el"))
-```
-
-### Doom Emacs
-In `packages.el` add the following:
-```elisp
-(package! kodlokal :recipe (:host github :repo "alperakgun/kodlokal.el"))
-```
-Add the example configuration to your `config.el` file.
-
-
-### Install
+### Git
 
 Run the following.
 
@@ -57,3 +43,17 @@ Company mode allows you to cycle
 ```
 (global-set-key (kbd "s-/") 'company-complete-common-or-cycle)
 ```
+
+### straight.el (not tested)
+
+```elisp
+(straight-use-package '(kodlokal :type git :host github :repo "alperakgun/kodlokal.el"))
+```
+
+### Doom Emacs  (not tested)
+In `packages.el` add the following:
+```elisp
+(package! kodlokal :recipe (:host github :repo "alperakgun/kodlokal.el"))
+```
+Add the example configuration to your `config.el` file.
+
