@@ -67,8 +67,7 @@ Hydra can allow multiple prompt libraries to be used for
 ```lisp
 (defhydra hydra-ai (:color yellow
                                    :hint nil)
-  "
-------------------------------------------------------------------------------------------
+  "----------------------------Kodlokal AI Assistan --------------------
  i: Complete text
 "
   ("i"  kodlokal-ai-completion)
