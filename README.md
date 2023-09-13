@@ -4,6 +4,8 @@ Kodlokal; local code completion using LLM AI
 
 ## Install
 
+First go, install and run https://github.com/kodlokal/kodlokal
+
 ### Git
 
 Run the following.
