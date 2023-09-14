@@ -56,8 +56,8 @@
     (unless (and
              (stringp content)
              (stringp query)
-             (> (length content) 3)
-             (> (length query) 3))
+             (>= (length content) 3)
+             (>= (length query) 3))
       (throw 'exit 1))
       (while-no-input (kodlokal-fetch-suggestions-url query content model))))
 
